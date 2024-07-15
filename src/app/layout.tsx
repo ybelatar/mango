@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Mango",
   description: "Your super manga reader",
+  icons: [{ rel: "icon", url: "/mango.png" }],
 };
 
 export default function RootLayout({

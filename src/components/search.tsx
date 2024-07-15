@@ -92,7 +92,7 @@ export function Input({ placeholders }: { placeholders: string[] }) {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto p-4 w-[50em]">
+    <div className="flex flex-col max-w-2xl mx-auto p-4 w-[50em]">
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
@@ -100,19 +100,22 @@ export function Input({ placeholders }: { placeholders: string[] }) {
       />
       <ul className="pt-5 space-y-4">
         {searchResults.map((manga) => (
-          <div
-            key={manga.id}
-            className="flex flex-col md:flex-row p-5 items-center bg-white shadow-md rounded-lg"
+          <Link
+            href={`/manga/${manga.id}`}
+            className="flex flex-col md:flex-row p-5 items-center bg-mid shadow-md rounded-lg"
           >
-            <img
+            <Image
               src={`https://uploads.mangadex.org/covers/${manga.id}/${manga.cover_filename}`}
               alt={manga.title}
-              className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-md"
+              width={100}
+              height={100}
+              style={{ objectFit: "contain" }}
+              className=" rounded-md"
             />
             <li className="ml-0 md:ml-4 mt-4 md:mt-0 text-center md:text-left">
-              <Link href={`/manga/${manga.id}`}>{manga.title}</Link>
+              {manga.title}
             </li>
-          </div>
+          </Link>
         ))}
       </ul>
     </div>
