@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/page": [
+    "/chapter/[chapterId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/chapter/[chapterId]/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -15,11 +15,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/manga/[mangaId]/page.js"
-    ],
-    "/chapter/[chapterId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/chapter/[chapterId]/page.js"
     ]
   }
 }

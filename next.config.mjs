@@ -8,13 +8,19 @@ const nextConfig = {
 				port: '',
 				pathname: '/covers/**',
 			},
+			{
+				protocol: 'https',
+				hostname: '**.mangadex.network',
+				port: '',
+				pathname: '/data/**',
+			},
 		],
 	},
 	async headers() {
 		return [
 			{
 				// matching all API routes
-				source: "https://api.mangadex.org/:path*",
+				source: "/api.mangadex.org/:path*",
 				headers: [
 					{ key: "Access-Control-Allow-Credentials", value: "true" },
 					{ key: "Access-Control-Allow-Origin", value: "*" },

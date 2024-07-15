@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 const baseUrl = "https://api.mangadex.org";
 const axios = require("axios");
@@ -35,14 +36,26 @@ function Viewer({ id }: { id: string }) {
       });
   }, [id]);
 
+  const onImageLoad = () => {
+    setLoading(false);
+  };
+
   return (
-    <div className="">
+    <div className="min-w-[19em]">
       {pages.map((page) => (
-        <img
-          src={`${pageUrl}/data/${hash}/${page}`}
-          alt="panel"
-          className=""
-        ></img>
+        <>
+          <Image
+            src={`${pageUrl}/data/${hash}/${page}`}
+            alt="panel"
+            width={1000}
+            height={1000}
+            style={{
+              objectFit: "contain",
+              display: loading ? "none" : "block",
+            }}
+            onLoad={onImageLoad}
+          ></Image>
+        </>
       ))}
     </div>
   );
@@ -50,7 +63,7 @@ function Viewer({ id }: { id: string }) {
 
 export default function Chapter({ params }: { params: { chapterId: string } }) {
   return (
-    <main className="flex min-h-screen flex-col items-center p-24 bg-light">
+    <main className="flex min-h-screen min-w-screen flex-col items-center p-24 bg-light">
       <Viewer id={params.chapterId} />
     </main>
   );

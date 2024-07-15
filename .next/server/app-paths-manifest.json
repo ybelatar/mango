@@ -1,5 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/manga/[mangaId]/page": "app/manga/[mangaId]/page.js",
-  "/chapter/[chapterId]/page": "app/chapter/[chapterId]/page.js"
+  "/chapter/[chapterId]/page": "app/chapter/[chapterId]/page.js",
+  "/manga/[mangaId]/page": "app/manga/[mangaId]/page.js"
 }
