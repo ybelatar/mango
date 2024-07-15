@@ -18,7 +18,7 @@ function Viewer({ id }: { id: string }) {
         url: `${baseUrl}/at-home/server/${id}`,
       });
 
-      const pages: string[] = res.data.chapter.data.map((page) => page);
+      const pages: string[] = res.data.chapter.data.map((page: string) => page);
       setPageUrl(res.data.baseUrl);
       setHash(res.data.chapter.hash);
       return pages;

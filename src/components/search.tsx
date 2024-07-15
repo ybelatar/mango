@@ -13,7 +13,7 @@ interface Manga {
   cover_filename: string;
 }
 
-function throttle(cb, delay = 1000) {
+function throttle(cb: any, delay = 1000) {
   let shouldWait = false;
   let waitingArgs: any[] | null;
   const timeoutFunc = () => {

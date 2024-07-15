@@ -138,7 +138,7 @@ function Chapters({ id }: { id: string }) {
         },
       });
 
-      const chapters: Chapter[] = res.data.data.map((chapter) => {
+      const chapters: Chapter[] = res.data.data.map((chapter: any) => {
         return {
           id: chapter.id,
           chapter_number: chapter.attributes.chapter,
