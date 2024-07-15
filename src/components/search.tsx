@@ -13,6 +13,35 @@ interface Manga {
   cover_filename: string;
 }
 
+function throttle(cb, delay = 1000) {
+  let shouldWait = false;
+  let waitingArgs: any[] | null;
+  const timeoutFunc = () => {
+    if (waitingArgs == null) {
+      console.log("doing", waitingArgs);
+      shouldWait = false;
+    } else {
+      cb(...waitingArgs);
+      waitingArgs = null;
+      setTimeout(timeoutFunc, delay);
+    }
+  };
+
+  return (...args: any[]) => {
+    console.log("main", shouldWait);
+    if (shouldWait) {
+      waitingArgs = args;
+      return;
+    }
+
+    cb(...args);
+    shouldWait = true;
+    console.log("second", shouldWait);
+
+    setTimeout(timeoutFunc, delay);
+  };
+}
+
 const findObjectById = (data: any[], type: string) => {
   return Object.values(data).find((obj) => obj.type === type);
 };
@@ -23,8 +52,7 @@ export function Input({ placeholders }: { placeholders: string[] }) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    performSearch(e.target.value);
-    console.log(e.target.value);
+    throttle(performSearch)(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,12 +62,20 @@ export function Input({ placeholders }: { placeholders: string[] }) {
   };
 
   const performSearch = async (query: string) => {
+    console.log(query);
+    if (!query || query == "" || query.length < 3) {
+      setSearchResults([]);
+      return;
+    }
+
     const res = await axios({
       method: "GET",
       url: `${baseUrl}/manga`,
       params: {
         title: query,
         "includes[]": "cover_art",
+        "order[relevance]": "desc",
+        "contentRating[]": ["safe", "suggestive"],
       },
     });
 
@@ -56,7 +92,7 @@ export function Input({ placeholders }: { placeholders: string[] }) {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto p-4">
+    <div className="flex flex-col w-full max-w-2xl mx-auto p-4 w-[50em]">
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
